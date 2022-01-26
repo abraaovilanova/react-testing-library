@@ -9,4 +9,7 @@ O objetivo desse repositório é colecionar cursos e tutoriais sobre testes unit
 # Videos Relacionados
 * [React: Teste seus componentes | Jest | Testing Library](https://www.youtube.com/watch?v=pbwXsjVEMqg&t=1152s)
 * [Testes com React Testing Library](https://www.youtube.com/watch?v=UKCIfwI8DxA&t=4s)
+[ ] [Front-End | React  - Testando interfaces com react-testing-library](https://www.youtube.com/watch?v=sdkgUu5hr6g&t=105s)
+[ ] [React Testing Crash Course](https://www.youtube.com/watch?v=OVNjsIto9xM)
+[ ] [React Testing Library Tutorial](https://www.youtube.com/watch?v=7dTTFW7yACQ&list=PL4cUxeGkcC9gm4_-5UsNmLqMosM-dzuvQ)
 
