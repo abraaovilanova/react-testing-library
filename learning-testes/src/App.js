@@ -1,6 +1,7 @@
 import Counter from './componentes/Counter/Counter'
 import Dropdown from './componentes/Dropdown/Dropdown'
 import Todo from './componentes/Todo/Todo'
+import Login from './componentes/Login/Login'
 import { useState } from 'react';
 
 import './App.css'
@@ -27,6 +28,10 @@ function App() {
 
       <Todo />
 
+      <hr />
+
+      <Login />
+      
     </div>
   );
 }
