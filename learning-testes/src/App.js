@@ -1,6 +1,6 @@
 import Counter from './componentes/Counter/Counter'
 import Dropdown from './componentes/Dropdown/Dropdown'
-import './App.css';
+import Todo from './componentes/Todo/Todo'
 import { useState } from 'react';
 
 function App() {
@@ -10,7 +10,9 @@ function App() {
   return (
     <div className="App">
       <Counter />
+
       <hr />
+
       {selectedPokemon && <div> Seu pokemon: {selectedPokemon} </div>}
 
       <Dropdown 
@@ -18,6 +20,11 @@ function App() {
         options={['Bulbasalro','Squirtle','Charmeleon']}
         onSelect={setSelectedPokemon}
       />
+
+      <hr />
+
+      <Todo />
+
     </div>
   );
 }
