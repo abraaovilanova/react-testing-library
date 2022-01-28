@@ -3,6 +3,8 @@ import Dropdown from './componentes/Dropdown/Dropdown'
 import Todo from './componentes/Todo/Todo'
 import { useState } from 'react';
 
+import './App.css'
+
 function App() {
   
   const [selectedPokemon, setSelectedPokemon] = useState(null)

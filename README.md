@@ -5,6 +5,20 @@ O objetivo desse repositório é colecionar cursos e tutoriais que eu fiz no you
 
 > "Quanto mais seus testes se assemelham à maneira como seu software é usado, mais confiança eles podem oferecer."
 
+# Why you should test?
+* Goal: Check whether an applications behaves as expected
+* Safeguard against unwanted behaviour when changes are made
+* Automated, and thus efficient on the long-term
+
+# What should you test?
+Have a test priority (example):
+1. High value features
+2. Edge cases in high value features
+3. Things that are easy to break
+4. Basic React component testing
+    * User interaction
+    * Conditional rendering
+    * Utils / Hooks
 
 # Videos Relacionados
 - [x] [React: Teste seus componentes | Jest | Testing Library](https://www.youtube.com/watch?v=pbwXsjVEMqg&t=1152s)
