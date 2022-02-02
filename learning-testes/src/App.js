@@ -2,6 +2,11 @@ import Counter from './componentes/Counter/Counter'
 import Dropdown from './componentes/Dropdown/Dropdown'
 import Todo from './componentes/Todo/Todo'
 import Login from './componentes/Login/Login'
+import TitleCard from './componentes/TitleCard/TitleCard'
+import FetchAPI from './componentes/FetchAPI/FetchAPI'
+
+import Contador from './componentes/Contador/Contador'
+import CardTexto from './componentes/CardTexto/CardTexto'
 import { useState } from 'react';
 
 import './App.css'
@@ -12,6 +17,13 @@ function App() {
 
   return (
     <div className="App">
+      <Contador />
+
+      <hr />
+
+      <CardTexto />
+      
+      <hr />
       <Counter />
 
       <hr />
@@ -31,8 +43,15 @@ function App() {
       <hr />
 
       <Login />
+
+      <hr />
+
+      <TitleCard title1="My title" />
       
+      <hr />
+      <FetchAPI />
     </div>
+
   );
 }
 
