@@ -1,7 +1,5 @@
 # [Abe] Anotações React Test Library
 
-**Sumário**
-
 # Introdução
 
 No começo da minha carreira como desenvolvedor Front-end eu morria de medo de fazer testes unitários, sempre que eu me candidatava para uma vaga de emprego que solicitava que no desafio técnico fossem implementados teste unitários nos componentes eu ficava ansioso e já fazia o desafio técnico sabendo que eu não iria passar - ou teria em vender muito bem meu peixe na entrevista para os recrutadores não me perguntarem sobre os testes unitários -  se esse ponto fosse muito importante na avaliação,  ou seja, sempre que “testes unitários” aparecia na minha frente eu queria chorar.  Logo quando eu comecei a aprender React eu tentei estudar testes usando jets mas como eu ainda não tinha um domínio bom do framework eu não consegui aprender corretamente e nem entender a filosofia por trás dos testes.
@@ -19,6 +17,12 @@ Vou deixar aqui algumas citação que eu acredito que são interessantes sobre t
 
 > "Quanto mais seus testes se assemelham à maneira como seu software é usado, mais confiança eles podem oferecer.”
 > 
+# Organização do repositório
+* **Cpmponentes** : Nesse projeto existem diversos componentes que funcionam de forma isolada, o objetivo aqui é testas funcionalidades básicas de click em botões, preenchimento em formulários, mudança de estilo de uma tag, ou seja, o foco aqui é mais os tetes unitários.
+
+* **Projetos completos** : Nessa pasta possui alguns projetos completos para que possamos fazer um fluxo de teste mais completos, fazendo testes de integração. Aqui os testes já são mais parecidos com a maneira que o usuário utiliza os aplicativos
+
+* **APIs**: Algumas api em nodeJS/express que foram criadas para testar alguns dos projetos citados acima.
 
 # Componentes
 
