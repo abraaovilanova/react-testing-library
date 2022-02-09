@@ -10,7 +10,7 @@ Aqui está o plano para este aplicativo incrivelmente inovador!
 - A cor inicial do botão será vermelha e o texto mostrado na tela será *“Change to Blue”* indicando que ao clicar no botão, ele mudará para azul.
 - Então, quando o botão mudar para azul, ele terá o texto alterado para vermelho, indicando que quando você clicar nele, ele mudará novamente para vermelho.
 
-![Untitled](2%20Simple%20App%20Color%20Button%20917d17676820471caedc282958b6f7f6/Untitled.png)
+![color-app](images/color-app-1.png)
 
 Então, no verdadeiro estilo do TDD, escreveremos nossos testes antes de realmente codificar a funcionalidade. Vamos começar a escrever o que queremos testar.
 
