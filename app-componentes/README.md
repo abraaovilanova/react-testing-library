@@ -1,5 +1,12 @@
 # Componentes
 
+|  Componente | Conceitos de teste  |
+|:-----------:|:-------------------:|
+|  Contador   |  ...                |
+| -           | ...                 |
+|  -          |  ...                |
+|   -         |   ...               |   
+                
 ## Contador
 
 O primeiro componente que iremos testar é um **Contador** simples que deve funcionar da seguinte maneira:
