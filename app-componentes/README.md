@@ -1,11 +1,9 @@
 # Componentes
 
-|  Componente | Conceitos de teste  |
-|:-----------:|:-------------------:|
-|  Contador   |  ...                |
-| -           | ...                 |
-|  -          |  ...                |
-|   -         |   ...               |   
+|  Componente | Conceitos de teste                                                                          |
+|:-----------:|:-------------------------------------------------------------------------------------------:|
+|  Contador   |  Encontrar elementos na tela por papel/cargo/função (role) semântica e clicar em elementos  |
+ 
                 
 ## Contador
 
