@@ -1,7 +1,7 @@
 # Color Button APP
 Esse aplicativo foi desenvolvido no curso da udemy a seguir estão a descrição do passo a passo utilizado no desenvolvimento do aplicativo e na sua testagem.
 
-# Começando o App Color Button
+## Começando o App Color Button
 
 Vamos criar um aplicativo muito simples que ajudará a nos acostumar com os testes. O aplicativo será chamado Color Button. 
 
@@ -75,3 +75,83 @@ export default App;
 ```
 
 E nosso teste está passando!, então parabéns a você. temos nosso primeiro teste verde vermelho.
+
+## Teste que encontra botão (button) e clica
+
+Vamos falar sobre nosso próximo teste, que é onde vamos realmente interagir com a DOM. O objetivo agora é **clicar** no botão e  verificar se ele fica azul.
+
+Então, como de costume, nosso primeiro passo será renderizar o componente. Então precisamos encontrar o elemento, exatamente da mesma forma que fizemos antes, vamos usar o `getByRole(...)` e vamos dar um nome 'Change to blue'.
+
+```jsx
+test('button turn blue when clicked', () => {
+
+	render(<App />)
+	const colorButton = screen.getByRole('button', { name : 'Change to blue' })
+})
+```
+
+Primeiro esperamos que a cor de fundo seja vermelha e clicaremos no botão, que já encontramos. Então, como esse botão é clicado? Vamos importar outro objeto da biblioteca de testes react e este será `fireEvent`. É isso que vai nos ajudar a interagir com os elementos em nosso DOM virtual.
+
+```jsx
+test('button turn blue when clicked', () => {
+  render(<App />)
+
+  // find an element with a role of button and test of 'Change to blue'
+  const colorButton = screen.getByRole('button', { name: 'Change to blue' })
+
+  
+  // expect the background color to be red
+  expect(colorButton).toHaveStyle({ backgroundColor: 'red'})
+  
+  // click button
+  fireEvent.click(colorButton)
+
+})
+```
+
+Ok, isso foi fácil, clicamos no botão e o que esperamos que aconteça depois que o botão for clicado? Espera-se que tenhamos uma cor de fundo azul?
+
+
+```jsx
+test('button turn blue when clicked', () => {
+  render(<App />)
+
+  // find an element with a role of button and test of 'Change to blue'
+  const colorButton = screen.getByRole('button', { name: 'Change to blue' })
+
+  
+  // expect the background color to be red
+  expect(colorButton).toHaveStyle({ backgroundColor: 'red'})
+  
+  // click button
+  fireEvent.click(colorButton)
+
+  // expect the background color to be blue
+  expect(colorButton).toHaveStyle({ backgroundColor: 'blue' })
+
+  // expect the button text to be 'Change to red'
+  expect(colorButton.textContent).toBe('Change to red')
+
+})
+```
+
+Para nosso teste passar nosso componente `App` deve ser:
+```jsx
+import { useState } from 'react'
+
+function App() {
+  const [buttonColor, setButtonColor] = useState('red')
+  const newButtonColor = buttonColor === 'red' ? 'blue' : 'red'
+  return (
+    <div>
+        <button 
+          style={{backgroundColor: buttonColor }}
+          onClick={()=>setButtonColor(newButtonColor)}
+        >
+          Change to {newButtonColor}</button>
+    </div>
+  );
+}
+
+export default App;
+```
