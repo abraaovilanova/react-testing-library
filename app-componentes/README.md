@@ -2,11 +2,9 @@
 
 |  Componente | Conceitos de teste                                                                          | Ultima atualização |
 |:-----------:|:-------------------------------------------------------------------------------------------:|:------------------:|
-|  Contador   |  * Encontrar elementos na tela utilizando diferentes métodos                                | 17/02/2022         |
-|             |  * clicar em elementos                                                                      |                    |
-|             |  * verificar se os botões estão desabilitados                                               |                    |
-|             |  * Verificar se o elemento está na DOM ou não                                               |                    |
-+-------------+---------------------------------------------------------------------------------------------+--------------------+  
+|  Contador   | <ul><li> Encontrar elementos na tela utilizando diferentes métodos </li><li> clicar em elementos</li><li> * verificar se os botões estão desabilitados</li><li>Verificar se o elemento está na DOM ou não</li></ul> | 17/02/21 |
+
+
                 
 ## Contador
 
