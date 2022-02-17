@@ -1,131 +1,150 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import Contador from './Contador'
 
-// Testes Unitários
-/**
-* 1. O contador deve iniciar com zero
-* 2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador
-* 3. ao clicar no botão -1 deve ser adicionado -1 ao valor do contador
-* 4. Ao clicar no botão Restaurar o contador deve voltar para Zero
-* 5. O botão restaurar não deve está na DOM se o contador estiver zerado
-* 6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos)
-* 7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar
-* 8. Ao clicar no botão restaurar o contador deve voltar para zero
-*/
-
-describe('Testes Unitários do componente Contador', ()=>{
-    test('1. contador deve iniciar o display com zero', ()=>{
+describe('testes para o componente Contador', ()=>{
+    test('1. O contador deve iniciar com zero', ()=>{
         render(<Contador />)
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('0')
+        // encontrar o elemento com função spam
+        const contador = screen.getByTestId('contador-valor')
+
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
     })
 
-    test('2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador', ()=>{
+    test('2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador', () => {
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('1')
-     
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
+
+        // encontrar o botão
+        const addButton = screen.getByRole('button', { name: '+1'})
+
+        // clicar no botão
+        fireEvent.click(addButton)
+
+        // verificar se o contador agora possui o valor 1
+        expect(contador).toHaveTextContent('1')
     })
 
-    test('3. Ao clicar no botão -1 deve ser subtrair 1 ao valor do contador', ()=>{
+    test('3. O botão -1 deve iniciar desabilitado', ()=>{
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        const nodeDisplayContador = screen.getByTestId('display-contador')
+        // encontrar o botão '-1'
+        const subButton = screen.getByRole('button', { name: '-1'})
 
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeSubBtn)
-
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
+        // verificar se o botão está desabilitado
+        expect(subButton).toBeDisabled()
     })
 
-    test('4. Ao clicar no botão Restaurar o contador deve voltar para Zero', ()=>{
+    test('4. Quando o contador estiver com um valor maior que zero o botão -1 deve ser habilitado', () => {
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        
-        fireEvent.click(nodeAddBtn)
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
 
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
+        // encontrar os botões
+        const addButton = screen.getByRole('button', { name: '+1'})
+        const subButton = screen.getByRole('button', {name: '-1' })
 
-        fireEvent.click(nodeRestBtn)
-        
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
+        // verifica se o botão de subtrair está desabilitado
+        expect(subButton).toBeDisabled()
+
+        // clicar no botão '+1'
+        fireEvent.click(addButton)
+
+        // verificar se o contador agora possui o valor 1
+        expect(contador).toHaveTextContent('1')
+
+        //  verifica se o botão '-1' está habilitado
+        expect(subButton).toBeEnabled()
     })
 
-    test('5. O botão restaurar não deve está na DOM se o contador estiver zerado', ()=>{
+    test('5. Ao clicar no botão -1 deve ser subtraido -1 ao valor do contador', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
 
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeRestBtn = screen.queryByTestId('btn-restaurar')
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        expect(nodeRestBtn).not.toBeInTheDocument()  // it doesn't exist
-     
+        // encontrar os botões
+        const addButton = screen.getByRole('button', { name: '+1' })
+        const subButton = screen.getByRole('button', { name: '-1' })
+
+        // clicando no botão '+1' 
+        fireEvent.click(addButton)
+
+        // verifica se o contador adicionou +1
+        expect(contador).toHaveTextContent('1')
+
+        // clicando no botão -1
+        fireEvent.click(subButton)
+
+        // verifica se contador subtraiu -1
+        expect(contador).toHaveTextContent('0')
     })
 
-    test('6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos)', ()=>{
+    test('6. O botão restaurar não deve está do documento', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
 
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeSubBtn = screen.getByTestId('btn-sub')
+        // procurar por botão 'Restaurar'
+        const restButton = screen.queryByRole('button', { name: 'Restaurar' })
 
-        expect(nodeSubBtn).toBeDisabled()
-     
+        // verificar se o botão não está na DOM
+        expect(restButton).not.toBeInTheDocument()
     })
 
-    test('7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar', ()=>{
+    test('7. Quando o contador for maior que 1 o botão restaurar deve está no documento', ()=>{
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('1')
+
+        // encontrando display do contador
+        const contador = screen.getByTestId('contador-valor')
+
+        // encontrando botão '+1'
+        const addButton = screen.getByRole('button', '+1')
 
 
-        
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
+        // clicando no botão '+1'
+        fireEvent.click(addButton)
 
-        expect(nodeRestBtn).toBeInTheDocument()  // it exist
-     
+        // encontrnado o botão restaurar
+        const restButton = screen.getByRole('button', 'Restaurar')
+
+        // verificando se o botão está na DOM
+        expect(restButton).toBeInTheDocument()
     })
 
-    test('8. Ao clicar no botão restaurar o contador deve voltar para zero', ()=>{
+    test('8. Ao clicar no botão Restaurar o contador deve voltar para Zero', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('2')
 
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
-        expect(nodeRestBtn).toBeInTheDocument()  // it exist
+        // encontrando display do contador
+        const contador = screen.getByTestId('contador-valor')
 
-        fireEvent.click(nodeRestBtn)
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        expect(nodeRestBtn).not.toBeInTheDocument()  // it exist
+        // encontrando botão '+1'
+        const addButton = screen.getByRole('button', '+1')
 
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        expect(nodeSubBtn).toBeDisabled()
+
+        // clicando no botão '+1'
+        fireEvent.click(addButton)
+
+        // encontrnado o botão restaurar
+        const restButton = screen.getByRole('button', 'Restaurar')
+
+        // verificando se o botão está na DOM
+        expect(restButton).toBeInTheDocument()
+
+        // clicando no botão restaurar
+        fireEvent.click(restButton)
+
+        // verificando se o display do contador é igual a zero
+        expect(contador).toHaveTextContent('0')
 
     })
- 
-
 
 })

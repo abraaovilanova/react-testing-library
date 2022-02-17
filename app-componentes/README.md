@@ -1,22 +1,26 @@
 # Componentes
 
-|  Componente | Conceitos de teste                                                                          |
-|:-----------:|:-------------------------------------------------------------------------------------------:|
-|  Contador   |  Encontrar elementos na tela por papel/cargo/função (role) semântica e clicar em elementos  |
- 
+|  Componente | Conceitos de teste                                                                          | Ultima atualização |
+|:-----------:|:-------------------------------------------------------------------------------------------:|:------------------:|
+|  Contador   |  * Encontrar elementos na tela utilizando diferentes métodos                                | 17/02/2022         |
+|             |  * clicar em elementos                                                                      |                    |
+|             |  * verificar se os botões estão desabilitados                                               |                    |
+|             |  * Verificar se o elemento está na DOM ou não                                               |                    |
++-------------+---------------------------------------------------------------------------------------------+--------------------+  
                 
 ## Contador
 
 O primeiro componente que iremos testar é um **Contador** simples que deve funcionar da seguinte maneira:
 
-1. O contador deve iniciar com zero;
-2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador;
-3. Ao clicar no botão -1 deve ser subtraído 1 ao valor do contador;
-4. Ao clicar no botão Restaurar o contador deve voltar para Zero;
-5. O botão restaurar não deve está na DOM se o contador estiver zerado;
-6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos);
-7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar;
-8. Ao clicar no botão restaurar o contador deve voltar para zero;
+1. O display do contador deve iniciar com zero
+2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador
+3. O botão -1 deve iniciar desabilitado
+4. Quando o contador estiver com um valor maior que zero o botão -1 deve ser habilitado
+5. Ao clicar no botão -1 deve ser subtraido -1 ao valor do contador
+6. O botão restaurar não deve está do documento
+7. Quando o contador for maior que 1 o contador deve está no documento
+8. Ao clicar no botão Restaurar o contador deve voltar para Zero
+
 
 O componente `Contador.jsx`  eu criei para a gente começar os testes possui o seguinte código:
 
@@ -28,202 +32,31 @@ export default () => {
     const [contador, setContador] = useState(0)
 
     return (
-        <>
-            <h1 data-testid="titulo-componente">Contador</h1>
+        <div className="contador">
+            <h1>Contador</h1>
 
-            <span data-testid="display-contador">{contador}</span>
-
-            <br /><br />
+            <span data-testid="contador-valor">{contador}</span>
 
             <div>
                 <button
-                    data-testid="btn-add"
                     onClick={()=>setContador(contador + 1)}
                 >+1</button>
 
                 <button
-                    data-testid="btn-sub"
                     disabled={contador <= 0}
                     onClick={()=>setContador(contador - 1)}
                 >-1</button>
             </div>
 
-            <br />
-
             {contador > 0 && (
                 <button
-                data-testid="btn-restaurar"
                     onClick={()=>setContador(0)}
                 >Restaurar</button>
             )}
         
-        </>
+        </div>
     )
 }
-```
-
-É um componente bem básico que qualquer estudante com o básico de conhecimento em JavaScrip e React poderia criar, porém por mais simples que possa parecer existem diversas formas de testar esse componente. Para fins educativos vamos apenas focar nas 8 principais guias de funcionamento do componente que eu listei no começo dessa sessão.
-
-O próximo passo é criar um arquivo na mesma pasta (No meu caso eu gosto de criar os componentes em pastas separadas nos meus projetos React, por exemplo src/components/Contador) chamado `Contador.test.js` , e vamos começar a testar! 
-
-No arquivo novo criado nos precisamos importar algumas bibliotecas que vão nos fornecer o material necessário para *renderezar* o componente e procurar na DOM pelos seus elementos. E também lembrar de importar o componente que iremos testar, nesse caso o Contador.
-
-```jsx
-import { render, screen, fireEvent } from '@testing-library/react'
-import Contador from './Contador'
-```
-
-O primeiro teste que iremos fazer é se o *display* do nosso componente `Contador.jsx` é inicia com o valor Zero.
-
-```jsx
-test('1. contador deve iniciar o display com zero', ()=>{
-        render(<Contador />)
-
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('0')
-    })
-```
-
-Vamos entender um pouco o que está acontecendo nesse teste, primeiramente a gente faz uma declaração de que irá inicializar o teste e colocamos um comentário com um pequeno resumo do que o teste irá fazer. Depois *renderizamos* o nosso componente com a função `render( <Contador />)` . Depois nos encontramos o nosso elemento que possui a propriedade data-testid que colocamos lá no nosso jsx que nesse caso seria “display-contador”. Depois nos verificamos de tem um texto dentro desse elemento com o valor zero (é interessante a gente trocar esse valor para ver se o teste quebra, isso garante que nos estamos indo pelo caminho certo).  Pronto, nosso primeiro teste foi executado com sucesso 🎉
-
-O nosso segundo teste agora possui uma funcionalidade nova, além de achar um elemento na tela, nos vamos querer clicar! Isso mesmo, já imaginou as possibilidade? Agora a gente precisa encontrar o botão e clicar nele!
-
-```jsx
-test('2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador', ()=>{
-        render(<Contador />)
-
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('1')
-     
-    })
-```
-
-Novamente nos renderizamos o componente, e usamos novamente o `getByTestId(...)` para encontrar um elemento na DOM (percebemos aqui que a medida que vamos fazendo os testes padrões são repetidos...), após isso a gente usa o `fireEvent.click(...)` para clicar no botão encontrado.
-
-Procuramos na nossa DOM o display e verificamos se agora o conteúdo  igual a ‘1’
-
-```jsx
-expect(nodeDisplayContador).toHaveTextContent('1')
-```
-
-O terceiro e o quarto nos utilizamos os mesmo conhecimentos dos testes 1 e 2, como podemos observar:
-
-```jsx
-test('3. Ao clicar no botão -1 deve ser subtrair 1 ao valor do contador', ()=>{
-        render(<Contador />)
-
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeSubBtn)
-
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
-    })
-
-    test('4. Ao clicar no botão Restaurar o contador deve voltar para Zero', ()=>{
-        render(<Contador />)
-
-        const nodeAddBtn = screen.getByTestId('btn-add')
-
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        
-        fireEvent.click(nodeAddBtn)
-
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
-
-        fireEvent.click(nodeRestBtn)
-        
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
-    })
-```
-
-O quinto teste possui uma peculiaridade pois o botão restaurar só deve está na DOM se o valor do display do contador for maior que zero. Para isso nos iremos utilizar o metódo `query` que retorna `null` se não encontrar o elemento na DOM (diferente do `get` que retorna um erro) e para fazer a verificação iremos utilizar o `not.toBeInTheDocument()`
-
-```jsx
-test('5. O botão restaurar não deve está na DOM se o contador estiver zerado', ()=>{
-        render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeRestBtn = screen.queryByTestId('btn-restaurar')
-
-        expect(nodeRestBtn).not.toBeInTheDocument()  // Esse elemento não existe!
-     
-    })
-```
-
-O sexto teste verifica se o botão está desabilitado com o método `toBeDisabled()`
-
-```jsx
-test('6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos)', ()=>{
-        render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-
-        expect(nodeSubBtn).toBeDisabled() // Esse botão está desabilitado
-     
-    })
-```
-
-O sétimo teste é o oposto do teste 5 agora quando o contador estiver com um valor maior que zero o botão restaurar deve aparecer na DOM
-
-```jsx
-test('7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar', ()=>{
-        render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('1')
-
-        
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
-
-        expect(nodeRestBtn).toBeInTheDocument()  // Esse elemento existe!
-     
-    })
-```
-
-O ultimo teste teste mais completo, que usa praticamente tudo que aprendemos nessa sessão. Primeiramente nos encontramos o elemento display-contador, depois encontramos o botão btn-add clicamos duas vezes no botão e verificamos se aparece 2 no display.
-
-sepois procuramos pelo borão restaurar, verificamos se ele está na DOM
-
-Clicamos no botão restaurar, verificamos se o contador agora marca zero, se o botão subtrair está desabilitado e se o botão restaurar sumiu.
-
-```jsx
-test('8. Ao clicar no botão restaurar o contador deve voltar para zero', ()=>{
-        render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('2')
-
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
-        expect(nodeRestBtn).toBeInTheDocument()  // it exist
-
-        fireEvent.click(nodeRestBtn)
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        expect(nodeRestBtn).not.toBeInTheDocument()  // it exist
-
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        expect(nodeSubBtn).toBeDisabled()
-
-    })
 ```
 
 O arquivo completo do teste ficou assim:
@@ -232,130 +65,151 @@ O arquivo completo do teste ficou assim:
 import { render, screen, fireEvent } from '@testing-library/react'
 import Contador from './Contador'
 
-// Testes Unitários
-/**
-* 1. O contador deve iniciar com zero
-* 2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador
-* 3. ao clicar no botão -1 deve ser adicionado -1 ao valor do contador
-* 4. Ao clicar no botão Restaurar o contador deve voltar para Zero
-* 5. O botão restaurar não deve está na DOM se o contador estiver zerado
-* 6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos)
-* 7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar
-* 8. Ao clicar no botão restaurar o contador deve voltar para zero
-*/
-
-describe('Testes Unitários do componente Contador', ()=>{
-    test('1. contador deve iniciar o display com zero', ()=>{
+describe('testes para o componente Contador', ()=>{
+    test('1. O contador deve iniciar com zero', ()=>{
         render(<Contador />)
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('0')
+        // encontrar o elemento com função spam
+        const contador = screen.getByTestId('contador-valor')
+
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
     })
 
-    test('2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador', ()=>{
+    test('2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador', () => {
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        expect(nodeDisplayContador).toHaveTextContent('1')
-     
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
+
+        // encontrar o botão
+        const addButton = screen.getByRole('button', { name: '+1'})
+
+        // clicar no botão
+        fireEvent.click(addButton)
+
+        // verificar se o contador agora possui o valor 1
+        expect(contador).toHaveTextContent('1')
     })
 
-    test('3. Ao clicar no botão -1 deve ser subtrair 1 ao valor do contador', ()=>{
+    test('3. O botão -1 deve iniciar desabilitado', ()=>{
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        const nodeDisplayContador = screen.getByTestId('display-contador')
+        // encontrar o botão '-1'
+        const subButton = screen.getByRole('button', { name: '-1'})
 
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeSubBtn)
-
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
+        // verificar se o botão está desabilitado
+        expect(subButton).toBeDisabled()
     })
 
-    test('4. Ao clicar no botão Restaurar o contador deve voltar para Zero', ()=>{
+    test('4. Quando o contador estiver com um valor maior que zero o botão -1 deve ser habilitado', () => {
         render(<Contador />)
 
-        const nodeAddBtn = screen.getByTestId('btn-add')
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        
-        fireEvent.click(nodeAddBtn)
+        // verificar se o valor do contador é zero
+        expect(contador).toHaveTextContent('0')
 
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
+        // encontrar os botões
+        const addButton = screen.getByRole('button', { name: '+1'})
+        const subButton = screen.getByRole('button', {name: '-1' })
 
-        fireEvent.click(nodeRestBtn)
-        
-        expect(nodeDisplayContador).toHaveTextContent('0')
-     
+        // verifica se o botão de subtrair está desabilitado
+        expect(subButton).toBeDisabled()
+
+        // clicar no botão '+1'
+        fireEvent.click(addButton)
+
+        // verificar se o contador agora possui o valor 1
+        expect(contador).toHaveTextContent('1')
+
+        //  verifica se o botão '-1' está habilitado
+        expect(subButton).toBeEnabled()
     })
 
-    test('5. O botão restaurar não deve está na DOM se o contador estiver zerado', ()=>{
+    test('5. Ao clicar no botão -1 deve ser subtraido -1 ao valor do contador', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
 
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeRestBtn = screen.queryByTestId('btn-restaurar')
+        // encontrar o elemento com testid 'contador-valor'
+        const contador = screen.getByTestId('contador-valor')
 
-        expect(nodeRestBtn).not.toBeInTheDocument()  // it doesn't exist
-     
+        // encontrar os botões
+        const addButton = screen.getByRole('button', { name: '+1' })
+        const subButton = screen.getByRole('button', { name: '-1' })
+
+        // clicando no botão '+1' 
+        fireEvent.click(addButton)
+
+        // verifica se o contador adicionou +1
+        expect(contador).toHaveTextContent('1')
+
+        // clicando no botão -1
+        fireEvent.click(subButton)
+
+        // verifica se contador subtraiu -1
+        expect(contador).toHaveTextContent('0')
     })
 
-    test('6. Se o contador estiver zerado o botão de subtrair deve está desabilitado (ou seja, o contador não pode ter valores negativos)', ()=>{
+    test('6. O botão restaurar não deve está do documento', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
 
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        
-        const nodeSubBtn = screen.getByTestId('btn-sub')
+        // procurar por botão 'Restaurar'
+        const restButton = screen.queryByRole('button', { name: 'Restaurar' })
 
-        expect(nodeSubBtn).toBeDisabled()
-     
+        // verificar se o botão não está na DOM
+        expect(restButton).not.toBeInTheDocument()
     })
 
-    test('7. Se o contador estiver com um número maior que zero deve aparecer um botão de restaurar', ()=>{
+    test('7. Quando o contador for maior que 1 o botão restaurar deve está no documento', ()=>{
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('1')
 
-        
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
+        // encontrando display do contador
+        const contador = screen.getByTestId('contador-valor')
 
-        expect(nodeRestBtn).toBeInTheDocument()  // it exist
-     
+        // encontrando botão '+1'
+        const addButton = screen.getByRole('button', '+1')
+
+
+        // clicando no botão '+1'
+        fireEvent.click(addButton)
+
+        // encontrnado o botão restaurar
+        const restButton = screen.getByRole('button', 'Restaurar')
+
+        // verificando se o botão está na DOM
+        expect(restButton).toBeInTheDocument()
     })
 
-    test('8. Ao clicar no botão restaurar o contador deve voltar para zero', ()=>{
+    test('8. Ao clicar no botão Restaurar o contador deve voltar para Zero', () => {
         render(<Contador />)
-        
-        const nodeDisplayContador = screen.getByTestId('display-contador')
-        const nodeAddBtn = screen.getByTestId('btn-add')
-        fireEvent.click(nodeAddBtn)
-        fireEvent.click(nodeAddBtn)
-        expect(nodeDisplayContador).toHaveTextContent('2')
 
-        const nodeRestBtn = screen.getByTestId('btn-restaurar')
-        expect(nodeRestBtn).toBeInTheDocument()  // it exist
+        // encontrando display do contador
+        const contador = screen.getByTestId('contador-valor')
 
-        fireEvent.click(nodeRestBtn)
-        expect(nodeDisplayContador).toHaveTextContent('0')
-        expect(nodeRestBtn).not.toBeInTheDocument()  // it exist
+        // encontrando botão '+1'
+        const addButton = screen.getByRole('button', '+1')
 
-        const nodeSubBtn = screen.getByTestId('btn-sub')
-        expect(nodeSubBtn).toBeDisabled()
+
+        // clicando no botão '+1'
+        fireEvent.click(addButton)
+
+        // encontrnado o botão restaurar
+        const restButton = screen.getByRole('button', 'Restaurar')
+
+        // verificando se o botão está na DOM
+        expect(restButton).toBeInTheDocument()
+
+        // clicando no botão restaurar
+        fireEvent.click(restButton)
+
+        // verificando se o display do contador é igual a zero
+        expect(contador).toHaveTextContent('0')
 
     })
- 
 
 })
 ```
