@@ -24,31 +24,31 @@ Vou deixar aqui algumas citação que eu acredito que são interessantes sobre t
 
 * **APIs**: Algumas api em NodeJS/express que foram criadas para testar alguns dos projetos citados acima.
 
-# +Info
+# +Info sobre Testes
 
-# The Importance of Testing
-* Catch Bugs
-* Increases Confidence in Application
-* Speeds up QA Time
-* Can Serve as Documentations
+## A importância dos testes
+* Detectar Bugs
+* Aumenta a confiança na aplicação
+* Acelerar o tempo do QA
+* Pode servir como documentação
 
-# Types of Test
-* Unit Tests: Are Tests that test a pice of code or component in complete isolation.
-* Integration Tests: Test the interaction between components
-* End to Emd (E2E) Tests: Simulates user flow in app
+## Tipos de teste
+* Testes Unitários (*Unit Tests*): São Testes que testam um pedaço de código ou componente em completo isolamento;
+* Testes de integração (*Integration Tests*): Testar a interação entre os componentes;
+* End to Emd (E2E) Tests: Simula o fluxo do usuário no aplicativo.
 
-# Structure of Tests (Test Block)
-* Render a component we to test
-* Find elements we want to interact with
-* Interact with those elements
-* Assert that the results are as expected
+## Estrutura de Testes (Bloco de Teste)
+* Renderize um componente para testar
+* Encontre elementos com os quais queremos interagir
+* Interaja com esses elementos
+* Afirmar que os resultados são os esperados
 
-# Why you should test?
-* Goal: Check whether an applications behaves as expected
-* Safeguard against unwanted behaviour when changes are made
-* Automated, and thus efficient on the long-term
+## Por que você deve testar?
+* Objetivo: Verificar se um aplicativo se comporta conforme o esperado
+* Proteja-se contra comportamentos indesejados quando são feitas alterações
+* Automatizado e, portanto, eficiente a longo prazo
 
-# What should you test?
+<!-- ## O que você deve testar?
 Have a test priority (example):
 1. High value features
 2. Edge cases in high value features
@@ -56,9 +56,10 @@ Have a test priority (example):
 4. Basic React component testing
     * User interaction
     * Conditional rendering
-    * Utils / Hooks
+    * Utils / Hooks -->
 
-# Intro to Query Methods
+## Resumo dos "Query Methods"
+
 |          |  getBy | findBy | queryBy | getAllBy | findAllBy | queryAllBy |
 |:--------:|:------:|:------:|:-------:|:--------:|:---------:|:----------:|
 | No Match |  error |  error |   null  |   error  |   error   |    array   |
@@ -74,10 +75,11 @@ Have a test priority (example):
 - [ ] [React Testing Library Tutorial](https://www.youtube.com/watch?v=7dTTFW7yACQ&list=PL4cUxeGkcC9gm4_-5UsNmLqMosM-dzuvQ)
 
 # Cursos Relacionados
-- [ ] [Udemy - Testing React with Jest and Testing Library](https://www.udemy.com/course/react-testing-library/)
+- [x] [Udemy - Testing React with Jest and Testing Library](https://www.udemy.com/course/react-testing-library/)
 
 # Documentação Relacionada
 
 # Artigos Relacionados
+- [ ] [Como criar testes de integração em aplicações React](https://felipecesar.dev/posts/como-criar-testes-de-integra%C3%A7%C3%A3o-em-aplica%C3%A7%C3%B5es-react/)
 
 
