@@ -21,6 +21,7 @@ Vou deixar aqui algumas citação que eu acredito que são interessantes sobre t
 
 * **Projetos completos** : Nessa pasta possui alguns projetos completos para que possamos fazer um fluxo de teste mais completos, fazendo testes de integração. Aqui os testes já são mais parecidos com a maneira que o usuário utiliza os aplicativos, entre os aplicativos nessa pasta nos temos:
     * Color Button
+    * Sundaes on demand
 
 * **APIs**: Algumas api em NodeJS/express que foram criadas para testar alguns dos projetos citados acima.
 

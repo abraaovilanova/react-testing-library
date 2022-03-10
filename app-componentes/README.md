@@ -2,13 +2,14 @@
 
 |  Componente | Conceitos de teste                                                                          | Ultima atualização |
 |:-----------:|:-------------------------------------------------------------------------------------------:|:------------------:|
-|  Contador   | <ul><li> Encontrar elementos na tela utilizando diferentes métodos </li><li> clicar em elementos</li><li> * verificar se os botões estão desabilitados</li><li>Verificar se o elemento está na DOM ou não</li></ul> | 17/02/21 |
+|  Contador   | <ul><li> Encontrar elementos na tela utilizando diferentes métodos </li><li> clicar em elementos</li><li>Verificar se os botões estão desabilitados</li><li>Verificar se o elemento está na DOM ou não</li></ul> | 17/02/22 |
+|  CardTexto  | <ul><li>Encontrar elementos na tela utilizando diferentes métodos<li><li>Esperar que elemento apareça na tela</li></ul>                                                                                             |      10/03/22             |
 
 
                 
 ## Contador
 
-O primeiro componente que iremos testar é um **Contador** simples que deve funcionar da seguinte maneira:
+O primeiro componente que nos iremos testar é um **Contador** simples que deve funcionar da seguinte maneira:
 
 1. O display do contador deve iniciar com zero
 2. Ao clicar no botão +1 deve ser adicionado 1 ao valor do contador

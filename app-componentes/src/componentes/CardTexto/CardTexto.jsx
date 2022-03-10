@@ -16,8 +16,7 @@ export default ({
         setTitulo1(texto1)
         setTimeout(()=>setTitulo2(texto2),600)
         setTimeout(()=>setParagrafo1(info),1200)
-        // eslint-disable-next-line
-    },[])
+    },[texto1, texto2, info])
 
     return (
         <div>
